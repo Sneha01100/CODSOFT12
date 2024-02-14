@@ -1,0 +1,81 @@
+Import pandas as pd
+Import numpy as np
+plotlib.pyplot as plt import
+Seaborn Import as np
+Ntshuam conspiracylib.pyplot Import as plt
+Ntshuam seaborn as sns 
+
+train=pd.read_csv('../input/titanic/train .csv')
+ test=pd .read_csv('../input/titanic/test.csv')
+ train.head()
+train.shape
+train.columns
+train ['Sex'].value_counts ()&lt; br&gt;train['Dead'] = 1 - train['Survived'] 
+train.groupby('Sex').agg('total')[['Survived'] 'Stayed', 'Tuag']]. plot(zoo ='bar',
+ Figsize=(10, 5),
+ stacked=True
+ Figure= plt.figure(figsize=(16, 7))
+plt.hist([ train[train ['survived'] == 1]['fare'], tsheb ciav hlau ['survived'] == 0]['fare']],
+ stacked=True, boxes = 50, label = ['survival','tuag'])
+plt.xlabel('mouse')
+plt.ylabel('tus naj npawb ntawm cov neeg caij tsheb')
+plt.legend() 
+ df1=train .drop([' Lub npe','Ticket','Cabin','Passenger ID','Death'], axis=1)
+df1.head(10)
+df1 .isnull( .sum( )
+df1 .Sex=df1.Sex.map({'Woman':0, 'Man': 1})
+df1.Embarked=df1.Embarked.map({'S ': 0, 'C ':1, ' Q':2,'nan':'NaN'})
+df1.head ()
+mean_age_men=df1[df1['Gender']==1] ['Age'].mean() &gt;mean_age_women=df1[df1['gender']==0] ['age'] .mean()
+df1.loc[(df1.Age.isnull() ) &amp; (df1['Gender']== 0),'Age']=mean_age_women
+df1.loc [(df1.Age).isnull()) &amp; (df1['Gender']==1), 'Age ']=mean_age_men 
+ df1.isnull().sum()
+ df1.dropna(inplace =True)
+ df1.isnull().sum()
+df1.Age = (df1 .Age-min(df1 .Age))/ (max(df1.Age)-min(df1.Age)) 
+df1.Mouse = (df1.Mouse-min(df1.Mouse))/(max(df1 .Mouse)-min(df1.Mouse)) ) 
+df1.describe()
+X_train, X_test, y_train, y_test = train_test_split( 
+ df1.drop(['Survived'], axis=1 ),
+ df1.Survived ,
+ test_size = 0,2,
+ random_state=0,
+ stratify=0,
+ stratify=0,
+ df1.Survived)
+ 
+Los ntawm sklearn.linear_model import LogisticRegression
+lrmod = LogisticRegression( )
+lrmod.fit(X_train, y_train)
+los ntawm import sklearn.metrics Precision_score
+precision_score&lt; y_kledicarn.metrics import . .predict(X_test)
+accuracy_score(y_test, y_predict)
+
+Los ntawm sklearn.metrics import fusion_matrix
+cma=confusion_matrix(y_test, y_predict)
+sns.heatmap(mans. 
+ test .head ()
+df2=test.drop(['Passenger ID','Name','Ticket','Cabin'], axis=1)
+df2
+ df2.Sex =df2. Gender .map({'Female':0, 'Male':1})
+df2.Embarted=df2.Embarked.map({'S':0, 'C':1, 'Q' :2, ' nan': 'NaN'})
+df2.head()
+df2.isnull().sum()
+mean_age_men2=df2[df2['gender']==1]['age' ] .mean( )
+mean_age_women2=df2[df2['gender']==0]['age'].mean()
+
+
+ df2.loc[(df2. Age.isnull ( )) &amp; (df2['Gender']==0),'Age']=mean_age_women2
+df2.loc[(df2.Age.isnull()) &amp; (df2['Gender']= = 1) , 'Age' ]=mean_age_men2
+df2['fee']=df2['fee'].fillna(df2['fee'].mean())
+df2.isnull( .sum( ) &gt; &gt;df2.Age = (df2.Age-min(df2.Age))/(max(df2.Age)-min(df2.Age))
+df2.Mouse = (df2. Mouse-min( df2. Fee ))/ (max(df2.Mouse)-min(df2.Mouse))
+df2.describe()
+Predict = lrmod.predict(df2)
+Predict
+
+ Shipping = pd .DataFrame( {"PassengerID": test["PassengerID"],
+ "Survived": prediction})
+submission.to_csv('submission.csv', index=False)
+prediction_df = pd . read_csv ('submission .csv')
+sns.countplot(x='survival', data=prediction_df)
