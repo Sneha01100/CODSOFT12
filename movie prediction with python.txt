@@ -1,0 +1,86 @@
+Import pandas as pd
+Import Numpy as np
+Import Seaborn as np 
+From matplot pytplotplot  &gt;import plotly.graph_objects as go
+import plotly.express as px
+import from named collection
+import ydata_profiling as pandas_profiling
+ &gt;los ntawm import IPython.display
+
+df = pd . read_csv('/kaggle/input/imdb-india-movies/IMDb Movies India.csv', encoding='latin1')
+
+df.head()
+
+report = pandas_profiling .ProfileReport ( df)
+View (report)
+
+df.dropna(subset=df.columns[1:9], how='all', inplace=True)
+
+df .drop_duplicates ( subset=['Npe', 'Year'], keep='first', inplace=True)
+
+df.dropna(subset=df.columns[[1, 2, 4, 5]], how ='all', inplace=True)
+
+df['Year'] = df['Year'].str.replace(r'[()]',',', regex=True)&lt; br&gt;df['Duration'] = df['Duration'].str.replace(r' minutes', '', regex=True)
+
+df = df[df['Year'] != '2022']
+
+print(f"Cleaned dataset shape: {df.shape}")
+
+year_counts = df['Year'].value_counts().reset_index() &gt; year_count.columns = ['Xyoo', 'Count']
+
+fig = px.bar(year_count, x='Year', y='Count', text='Count', title='Count ntawm movies and ntawm lub xyoo')
+fig.update_traces(texttemplate='%{text:.2s}', textposition='outside')
+fig.update_layout(
+ xaxis=dict( title =' Year ntawm movie tso', titlefont_size=16),
+ yaxis=dict(title='Number of movie of tso', titlefont_size=16, Tickfont_size=14)
+)
+fig.show()&lt; br &gt;
+ br &gt;dummies = df['Genre'].str.get_dummies(', ')
+df_genre = pd.concat([df, dummies], axis=1)
+
+genre_columns = df_genre. columns[ 10:] # by count before 11 
+genre_count_by_year = df_genre.groupby('Year')[genre_columns].sum().reset_index()
+
+fig = go. Figure( ) 
+History type_columns:
+Fig.add_trace(go.Scatter(x=genre_count_by-years['Year'], y=genre_count_by-years[type],
+ mode='rows', name =type ))&lt; br&gt; 
+fig.update_layout(
+ title='Nyeem ntau xyoo dhau los',
+ xaxis=dict(title='Year', titlefont_size=16),
+ yaxis= dict( title=' suav', titlefont_size=16, Tickfont_size=14),
+ lus dab neeg=dict(y=0, x=1.0, bgcolor='rgba(255, 255, 255, 0)', bordercolor =' rgba(255 , 255) , 255), 0)')
+fig.show()
+
+actor_cols = ['actor 1', 'actor 2', 'actor 3'] &gt;actor_df = pd .melt( df[['Year'] + actor_cols], id_vars=['Year'], value_vars=actor_cols, var_name='Actor', value_name='Number_Movies')
+actor_df.dropna(subset =[ 'Actor '], inplace=True)
+
+top_20_actors = actor_df['Actor'].value_counts().head(20).index.tolist()
+top_20_actor_df = actor_df[actor_df['Actor' ] isin(top_20_actors )]
+
+fig = px.strip(top_20_actor_df, x='Year', y='Actor', color='Actor', title='Maximum number of movies tsim tawm xyoo 20 ') 
+fig.update_layout(
+ xaxis_tickfont_size=14,
+ height=600
+)
+fig.show()
+
+director_df = df[['Director', ' Xyoo' ]].dropna()
+director_df['Movie_Count'] = 1
+
+top_20_directors = director_df['Director'].value_counts().head(20).index.tolist () &gt;top_20_director_df =director_df[director_df['director'].isin(top_20_directors)]
+
+fig = px.strip(top_20_director_df, x='year', y='director', title='most by tus naj good 20 director) npawb ntawm cov yeeb yaj kiab tsim tawm ntau xyoo')
+fig.update_layout(
+ xaxis_tickfont_size=14,
+ height=600
+)
+fig.show() &gt; 
+ dur_rat = df [['Duration', 'Rating', 'Vote']].dropna()
+dur_rat['Duration'] = dur_rat['Duration'] .str.replace('minute' ,'' ) .astype( int)
+dur_rat['vote'] = dur_rat['vote'].str.replace(',',').astype(float) 
+
+ fig = px .scatter_3d (dur_rat), &gt; fig.show( )
+
+ sns.pairplot(dur_rat)
+plt.show()
