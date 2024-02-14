@@ -1,0 +1,77 @@
+Import numpy as np
+Pandas skleklearn's pd' Import as
+. model_selection import train_test_split
+import LogisticRegression from sklearn.linear_model
+import sensitive_score from sklearn.metrics
+
+Data,credit_frf .csv&lt; br&gt;  
+Dataset_credit_card.head()
+
+Dataset_credit_card.tail()
+
+
+ Dataset_credit_card .info()&lt; br&gt;&lt; br&gt; br&gt;
+Dataset_credit_card.isnull().sum()
+
+
+ Dataset_credit_card[ 'Class '].value_counts ( )
+
+
+0 --&gt; Always buy&lt; br&gt;
+1 --&gt; Trade fraud 
+ 
+legit = Dataset_credit_card[Dataset_credit_card.Class == 0]
+fraud = Dataset_credit_card [Dataset_credit_card.Class == 1]
+
+ print(legit.shape) ) &lt; br &gt;print(fraud.shape)
+
+
+legit.Amount.describe()
+
+fraud.Amount.describe() 
+ 
+ 
+Dataset_credit_card.groupby('Class').mean()&lt; br&gt;
+
+Number of fraudulent transactions--&gt; 148
+
+
+legit_sample = legal.sample(n=148)
+  &gt;
+
+new_dataset = pd.concat([legit_sample,fraud], axis=0)
+
+new_dataset.head()
+ 
+  &gt;new_dataset .tail () &gt;
+new_dataset['Class'].value_counts()
+
+new_dataset.groupby('Class').mean()
+
+br&gt;A= new_dataset.drop(columns='Class', axis=1)
+B = new_dataset['Class']
+
+print(A)
+
+ print (B ) &lt; br&gt; &gt;
+A_train, A_test, B_train, B_test = train_test_split(A,B, test_size=0,2, stratify = B, random_state= 2) 
+ &gt;
+ print(A.shape, A_train.shape, A_test.shape)
+
+
+
+  &gt;model = LogisticRegression () 
+
+
+model.fit(A_train, B_train)
+
+
+A_train_prediction = model.predict(A_train)
+training_data_accuracy = sensitive_score(A_train_prediction, B_train)
+
+print('Sensitive data:', training_data_accuracy)  &gt; 
+ br&gt;
+A_test_prediction = model.predict(A_test)
+test_data_accuracy = sensitive_score(A_test_prediction, B_test)
+
+print('Score of the test file: ', test file is correct)
